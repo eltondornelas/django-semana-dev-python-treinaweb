@@ -4,12 +4,13 @@ from app.models import Task
 def register_task(task):
     Task.objects.create(title=task.title, description=task.description,
                         expiration_date=task.expiration_date,
-                        priority=task.priority)
+                        priority=task.priority, user=task.user)
 
 
-def task_list():
-    return Task.objects.all()
-    # SELECT * FROM app_task
+def task_list(user):
+    return Task.objects.filter(user=user).all()
+    # com esse filter, só traz os referentes ao usuario
+    # é um SELECT * FROM app_task
 
 
 def task_list_id(id):

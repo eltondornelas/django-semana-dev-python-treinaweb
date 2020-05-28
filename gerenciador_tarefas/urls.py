@@ -28,3 +28,5 @@ urlpatterns = [
 # show tables;
 # desc app_task;
 # select * from app_task
+# select * from auth_user
+# desc app_task;

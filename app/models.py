@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Task(models.Model):
@@ -13,3 +14,12 @@ class Task(models.Model):
     expiration_date = models.DateField(null=False, blank=False)
     priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES,
                                 null=False, blank=False)
+
+    # relacionando uma tarefa a um usuário
+    # porém, um usuário a varias tarefas
+    # relação de 1xN = ForeignKey
+
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    # como possuímos tarefas cadastradas sem relação com usuário
+    # ele poderá ser null
+    # cascade para apagar todas as tarefas relacionadas a este usuáiro
