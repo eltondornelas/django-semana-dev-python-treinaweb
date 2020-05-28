@@ -1,33 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}"/>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a class="navbar-brand" href="#">Task Manager</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+{% extends 'base.html' %}
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'task_list_route' %}">List
-                        Tasks</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <main class="container">
-        <h1>Task List</h1>
-        <h2>{{ task_name }}</h2>
-    </main>
-</body>
-</html>
+{% block content %}
+<h1>Task List</h1>
+{% for task in tasks %}
+<div class="card mb-3">
+    <div class="card-header">
+        {{ task.get_priority_display }}
+        <!-- get_atributename_display mostra o valor da chave
+        {{ task.priority }}
+        -->
+    </div>
+
+    <div class="card-body">
+        <h5 class="card-title">{{ task.title }}</h5>
+        <p class="card-text">{{ task.description }}</p>
+        <hr>
+        <a href="{% url 'edit_task_route' task.id %}">Alterar Tarefa</a>
+        <a href="{% url 'remove_task_route' task.id %}">Remover Tarefa</a>
+    </div>
+</div>
+{% endfor %}
+
+<a href="{% url 'register_task_route' %}"><input type="button"
+                                           class="btn btn-primary mb-3"
+                                           value="Cadastrar Tarefa"></a>
+<!--<h2>{{ task_name }}</h2>-->
+{% endblock content %}

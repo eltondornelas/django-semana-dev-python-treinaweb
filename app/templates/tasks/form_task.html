@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load my_filters %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form_task.title.errors }}
+        <label>Titulo: </label>
+        {{ form_task.title | add_class:'form-control' }}
+    </div>
+    <div class="form-group">
+        {{ form_task.description.errors }}
+        <label>Descrição: </label>
+        {{ form_task.description | add_class:'form-control' }}
+    </div>
+    <div class="form-group">
+        {{ form_task.expiration_date.errors }}
+        <label>Data de Expiração: </label>
+        {{ form_task.expiration_date | add_class:'form-control' }}
+    </div>
+    <div class="form-group">
+        {{ form_task.priority.errors }}
+        <label>Prioridade: </label>
+        {{ form_task.priority | add_class:'form-control' }}
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Salvar">
+    </div>
+</form>
+
+{% endblock content %}

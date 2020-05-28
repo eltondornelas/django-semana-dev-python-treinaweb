@@ -21,3 +21,10 @@ urlpatterns = [
     path('', include('app.urls')),
     #    path, como não tem view, ele vai no app a ser chamado
 ]
+
+# mysql -u root
+# create database gerenciador_tarefas;
+# use gerenciador_tarefas;
+# show tables;
+# desc app_task;
+# select * from app_task
