@@ -5,16 +5,6 @@ from ..forms import TaskForm
 from app.entities.task import Task
 from ..services import task_service
 
-# Create your views here.
-
-'''
-Arquitetura MVT -> Model View Template
-View -> Controller
-
-Template -> camada de View
-
-'''
-
 
 # com o @login_required é um decorator que verifica se usuário esta logado
 # se não estiver ele é redirecionado
@@ -24,20 +14,14 @@ Template -> camada de View
 @login_required()
 def task_list(request):
     tasks = task_service.task_list(request.user)
-    # task_name = 'Assistindo a Treinaweb'
     # request.user é o usuário logado
 
     return render(request, 'tasks/task_list.html',
                   {"tasks": tasks})
 
-    # o último parâmetro, é como estivesse enviando
-    # o contexto para o template (setAttribute() no java)
-
 
 @login_required()
 def register_task(request):
-    # TODO: entender porque o erro não aparece no template
-
     if request.method == 'POST':
         form_task = TaskForm(request.POST)
         # o TaskForm ja valida os campos automaticamente
@@ -64,13 +48,10 @@ def edit_task(request, id):
 
     if task_db.user != request.user:
         return HttpResponse('Não Permitido!')
-        # TODO: melhorar isso, mostar uma mensagem mais arrumada e redirecionar
 
     form_task = TaskForm(request.POST or None, instance=task_db)
-    # é como se recebesse o form preenchido do bd.
 
     if form_task.is_valid():
-        # se possui os 4 campos válidos
         title = form_task.cleaned_data['title']
         description = form_task.cleaned_data['description']
         expiration_date = form_task.cleaned_data['expiration_date']
